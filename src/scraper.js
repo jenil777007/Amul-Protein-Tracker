@@ -73,16 +73,23 @@ async function checkProductAvailability(gridItems, product) {
 
 export async function scrapeAvailabilities({ products, pincode }) {
   const url = 'https://shop.amul.com/en/browse/protein';
-  const isLocal = process.env.APT_LOCAL === 'true';
+  const isDocker = process.env.APT_DOCKER === 'true' || process.env.DOCKER === 'true';
+  const isLocal = isDocker ? false : process.env.APT_LOCAL === 'true';
   let browser;
   let page;
   let result = [];
   try {
     logScraper(`Launching browser. Headless: ${!isLocal}`);
-    browser = await puppeteer.launch({
+    const launchOptions = {
       headless: !isLocal,
       slowMo: isLocal ? 100 : 0
-    });
+    };
+    // Add --no-sandbox for Docker compatibility
+    if (isDocker) {
+      launchOptions.args = ['--no-sandbox'];
+      logScraper('Adding --no-sandbox to Puppeteer launch options for Docker.');
+    }
+    browser = await puppeteer.launch(launchOptions);
     page = await browser.newPage();
     logScraper(`Navigating to: ${url}`);
     await page.goto(url, { waitUntil: 'networkidle2' });
