@@ -1,4 +1,8 @@
-# Architecture Diagram
+# Amul Protein Tracker
+
+Track Amul protein product availability and receive Telegram notifications. Docker-ready, config-driven, and robustly logged for easy monitoring and deployment.
+
+## Architecture Diagram
 
 ```mermaid
 flowchart TD
@@ -13,9 +17,6 @@ flowchart TD
 	end
 	ENV["Environment (.env)"] --> DockerContainer
 ```
-# Amul Protein Tracker
-
-Track Amul protein product availability and receive Telegram notifications. Docker-ready, config-driven, and robustly logged for easy monitoring and deployment.
 
 ## Features
 
