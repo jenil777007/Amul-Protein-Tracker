@@ -1,3 +1,18 @@
+# Architecture Diagram
+
+```mermaid
+flowchart TD
+	subgraph DockerContainer[Docker Container]
+		CRON["Cron Scheduler"] --> SCRAPER["Scraper (Puppeteer)"]
+		SCRAPER -->|Scrapes| AMUL["Amul Website"]
+		SCRAPER --> LOGGER["Logger (Winston, JSONL)"]
+		SCRAPER --> NOTIFIER["Notifier (Telegram)"]
+		LOGGER --> APPLOG["app.log"]
+		LOGGER --> AVAILLOG["availability.log.jsonl"]
+		NOTIFIER --> TELEGRAM["Telegram API"]
+	end
+	ENV["Environment (.env)"] --> DockerContainer
+```
 # Amul Protein Tracker
 
 Track Amul protein product availability and receive Telegram notifications. Docker-ready, config-driven, and robustly logged for easy monitoring and deployment.
