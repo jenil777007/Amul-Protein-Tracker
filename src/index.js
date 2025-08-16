@@ -1,7 +1,9 @@
+
 import 'dotenv/config';
 import { scrapeAvailabilities } from './scraper.js';
 import { sendTelegramNotification } from './notifier.js';
 import { logAvailabilities } from './logger.js';
+import logger from './appLogger.js';
 
 
 const botToken = process.env.APT_TELEGRAM_BOT_TOKEN;
@@ -10,7 +12,7 @@ const products = process.env.APT_PRODUCTS ? process.env.APT_PRODUCTS.split(',').
 const pincodes = process.env.APT_PINCODES ? process.env.APT_PINCODES.split(',').map(p => p.trim()) : [];
 
 function logInfo(message, ...args) {
-    console.log(`[INDEX] ${message}`, ...args);
+    logger.info(`[INDEX] ${message} ${args.length ? args.map(a => JSON.stringify(a)).join(' ') : ''}`);
 }
 
 function formatNotificationMessage(pincode, availableProducts) {

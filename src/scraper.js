@@ -1,5 +1,7 @@
 
+
 import puppeteer from 'puppeteer';
+import logger from './appLogger.js';
 
 /**
  * Approach:
@@ -13,8 +15,9 @@ import puppeteer from 'puppeteer';
  */
 
 
+
 function logScraper(message, ...args) {
-  console.log(`[SCRAPER] ${message}`, ...args);
+  logger.info(`[SCRAPER] ${message} ${args.length ? args.map(a => JSON.stringify(a)).join(' ') : ''}`);
 }
 
 async function enterPincode(page, pincode) {
