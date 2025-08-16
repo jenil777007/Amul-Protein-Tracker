@@ -68,7 +68,7 @@ async function checkProductAvailability(gridItems, product) {
   return { product, availableCount: availableItems.length, availableItems };
 }
 
-export async function scrapeAvailability({ products, pincode }) {
+export async function scrapeAvailabilities({ products, pincode }) {
   const url = 'https://shop.amul.com/en/browse/protein';
   const isLocal = process.env.APT_LOCAL === 'true';
   let browser;

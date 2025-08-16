@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import { scrapeAvailability } from './scraper.js';
+import { scrapeAvailabilities } from './scraper.js';
 import { sendTelegramNotification } from './notifier.js';
-import { logAvailability } from './logger.js';
+import { logAvailabilities } from './logger.js';
 
 
 const botToken = process.env.APT_TELEGRAM_BOT_TOKEN;
@@ -30,7 +30,7 @@ function formatNotificationMessage(pincode, availableProducts) {
 async function processPincode(pincode) {
     const timestamp = new Date().toISOString();
     logInfo(`Processing pincode: ${pincode}`);
-    const result = await scrapeAvailability({ products, pincode });
+    const result = await scrapeAvailabilities({ products, pincode });
     logInfo('Scraping result:', JSON.stringify(result, null, 2));
     const availableProducts = result.filter(r => r.availableCount && r.availableCount > 0);
     let notificationSent = false;
@@ -46,7 +46,7 @@ async function processPincode(pincode) {
     } else {
         logInfo('No available products. No notification sent.');
     }
-    logAvailability({
+    logAvailabilities({
         timestamp,
         pincode,
         products: result,
