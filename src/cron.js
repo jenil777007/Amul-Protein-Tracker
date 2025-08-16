@@ -1,12 +1,13 @@
 
+
 import cron from 'node-cron';
 import { main } from './index.js';
 import logger from './appLogger.js';
 
-// Schedule to run every 30 minutes
+const CRON_SCHEDULE = process.env.APT_CRON_SCHEDULE || '*/30 * * * *';
 
-logger.info('[CRON] Scheduling product availability checks every 30 minutes.');
-cron.schedule('*/30 * * * *', async () => {
+logger.info(`[CRON] Scheduling product availability checks with schedule: ${CRON_SCHEDULE}`);
+cron.schedule(CRON_SCHEDULE, async () => {
   logger.info(`[CRON] Triggered at ${new Date().toISOString()}`);
   try {
     await main();
