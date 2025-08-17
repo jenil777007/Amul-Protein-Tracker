@@ -1,6 +1,6 @@
 # Amul Protein Tracker
 
-Track Amul protein product availability and receive Telegram notifications. Docker-ready, config-driven, and robustly logged for easy monitoring and deployment.
+Track Amul protein product availabilities and receive Telegram notifications. Docker-ready, config-driven, and robustly logged for easy monitoring and deployment.
 
 ## Architecture Diagram
 
@@ -26,6 +26,24 @@ flowchart TD
 - Scheduled checks using cron (default: every 30 minutes, configurable)
 - Robust application and availability logging (Winston, JSONL)
 - Modular codebase for easy extension and maintenance
+
+## Telegram Bot & Channel Setup
+
+### 1. Create a Telegram Bot
+
+1. Open Telegram and search for `@BotFather`.
+2. Start a chat and send `/newbot`.
+3. Follow the instructions to set a name and username for your bot.
+4. Copy the bot token provided by BotFather and set it as `APT_TELEGRAM_BOT_TOKEN` in your `.env` file.
+
+### 2. Create a Public Channel
+
+1. In Telegram, create a new channel (public).
+2. Add your bot to the channel as an admin (required for sending messages).
+3. Use the channel username (e.g., `@YourChannelName`) as `APT_TELEGRAM_CHAT_ID` in your `.env` file.
+
+NOTE: Support for private channels have not been tested
+---
 
 ## Quick Start
 
